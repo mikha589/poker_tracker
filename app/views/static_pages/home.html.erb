@@ -1,0 +1,41 @@
+<div class="min-h-screen w-full flex flex-col items-center justify-center bg-slate-900 px-4">
+  <div class="max-w-md w-full text-center">
+    
+    <% if user_signed_in? %>
+      <h1 class="text-4xl font-extrabold text-white tracking-tight mb-4">
+        Рады видеть вас, <span class="text-blue-500"><%= current_user.email %></span>!
+      </h1>
+      <p class="text-lg text-slate-400 mb-10">
+        Ваш банкролл ждет обновлений. Готовы занести сессию?
+      </p>
+      
+      <div class="flex flex-col space-y-4">
+        <a href="#" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-900/20 text-center">
+          Мои сессии
+        </a>
+        <%= button_to "Выйти", destroy_user_session_path, method: :delete, 
+            class: "w-full text-slate-400 hover:text-red-400 font-medium transition py-2" %>
+      </div>
+
+    <% else %>
+      <div class="mb-12">
+        <h1 class="text-6xl font-black text-white mb-4 tracking-tighter">
+          Poker<span class="text-blue-500">Tracker</span>
+        </h1>
+        <p class="text-xl text-slate-400">
+          Профессиональный учет покерных сессий. <br>
+          Контролируйте ROI и профит в один клик.
+        </p>
+      </div>
+
+      <div class="flex flex-col space-y-4">
+        <%= link_to "Войти в аккаунт", new_user_session_path, 
+            class: "w-full flex justify-center py-4 px-4 rounded-xl text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-900/30 transition duration-200" %>
+        
+        <%= link_to "Зарегистрироваться", new_user_registration_path, 
+            class: "w-full flex justify-center py-4 px-4 rounded-xl text-sm font-bold text-blue-400 border-2 border-slate-700 bg-transparent hover:bg-slate-800 hover:border-slate-600 transition duration-200" %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
