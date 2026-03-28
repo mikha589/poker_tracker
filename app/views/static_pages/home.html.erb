@@ -10,9 +10,7 @@
       </p>
       
       <div class="flex flex-col space-y-4">
-        <a href="#" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-900/20 text-center">
-          Мои сессии
-        </a>
+        <%= link_to "Мои сессии", poker_sessions_path, class: "w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-900/20 text-center" %>
         <%= button_to "Выйти", destroy_user_session_path, method: :delete, 
             class: "w-full text-slate-400 hover:text-red-400 font-medium transition py-2" %>
       </div>

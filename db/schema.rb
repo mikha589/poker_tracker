@@ -10,9 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_27_185316) do
+ActiveRecord::Schema[8.1].define(version: 2026_03_28_134446) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "poker_sessions", force: :cascade do |t|
+    t.integer "buy_in"
+    t.integer "cashout"
+    t.datetime "created_at", null: false
+    t.date "date"
+    t.integer "duration"
+    t.string "game_format"
+    t.integer "limit"
+    t.string "location"
+    t.text "notes"
+    t.datetime "updated_at", null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.datetime "created_at", null: false

@@ -1,0 +1,36 @@
+<div class="min-h-screen w-full flex items-center justify-center bg-slate-900 px-4 py-12">
+  <div class="max-w-md w-full bg-slate-800 p-10 rounded-3xl shadow-2xl border border-slate-700">
+    
+    <h2 class="text-3xl font-extrabold text-white text-center mb-10 tracking-tight">
+      Регистрация
+    </h2>
+
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-6" }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email", 
+            class: "appearance-none block w-full px-4 py-3.5 border border-slate-700 bg-slate-900 text-white rounded-xl placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+      </div>
+
+      <div>
+        <%= f.password_field :password, autocomplete: "new-password", placeholder: "Пароль (мин. #{@minimum_password_length} симв.)", 
+            class: "appearance-none block w-full px-4 py-3.5 border border-slate-700 bg-slate-900 text-white rounded-xl placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+      </div>
+
+      <div>
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Подтверждение пароля", 
+            class: "appearance-none block w-full px-4 py-3.5 border border-slate-700 bg-slate-900 text-white rounded-xl placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+      </div>
+
+      <div>
+        <%= f.submit "Зарегистрироваться", 
+            class: "w-full flex justify-center py-3.5 px-4 border border-transparent text-sm font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 cursor-pointer shadow-lg shadow-blue-900/40" %>
+      </div>
+    <% end %>
+
+    <div class="text-center mt-10">
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>

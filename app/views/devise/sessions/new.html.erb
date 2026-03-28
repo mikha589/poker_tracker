@@ -1,0 +1,38 @@
+<div class="min-h-screen w-full flex items-center justify-center bg-slate-900 px-4">
+  <div class="max-w-md w-full bg-slate-800 p-10 rounded-3xl shadow-2xl border border-slate-700">
+    
+    <h2 class="text-3xl font-extrabold text-white text-center mb-10 tracking-tight">
+      Вход в PokerTracker
+    </h2>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "space-y-6" }) do |f| %>
+      <div>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Ваш email", 
+            class: "appearance-none block w-full px-4 py-3.5 border border-slate-700 bg-slate-900 text-white rounded-xl placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+      </div>
+
+      <div>
+        <%= f.password_field :password, autocomplete: "current-password", placeholder: "Пароль", 
+            class: "appearance-none block w-full px-4 py-3.5 border border-slate-700 bg-slate-900 text-white rounded-xl placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+      </div>
+
+      <div class="flex items-center justify-between">
+        <% if devise_mapping.rememberable? %>
+          <div class="flex items-center">
+            <%= f.check_box :remember_me, class: "h-4 w-4 text-blue-600 focus:ring-blue-500 border-slate-700 rounded bg-slate-900" %>
+            <%= f.label :remember_me, "Запомнить меня", class: "ml-2 block text-sm text-slate-400" %>
+          </div>
+        <% end %>
+      </div>
+
+      <div>
+        <%= f.submit "Войти", 
+            class: "w-full flex justify-center py-3.5 px-4 border border-transparent text-sm font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 cursor-pointer shadow-lg shadow-blue-900/40" %>
+      </div>
+    <% end %>
+
+    <div class="text-center mt-10">
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>
