@@ -1,0 +1,84 @@
+<% 
+  locations = ["Casino", "Home Game", "Online"]
+  formats = ["MTT", "Holdem", "Sit&Go"]
+%>
+
+<div class="w-full min-h-screen bg-slate-900 pt-4 px-4 text-slate-200">
+  <div class="max-w-lg mx-auto bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-xl">
+    
+    <h2 class="text-2xl font-bold text-white mb-6 text-center text-blue-500 font-mono tracking-tight">
+      НОВАЯ СЕССИЯ
+    </h2>
+
+    <%= form_with(model: @poker_session, local: true, class: "space-y-4") do |f| %>
+      
+      <div class="space-y-1">
+        <%= f.label :date, "Дата игры", class: "text-xs font-semibold uppercase text-slate-500" %>
+        <%= f.date_field :date, value: Date.today, 
+            class: "w-full bg-slate-900 border border-slate-700 rounded-lg text-white p-2.5 focus:ring-2 focus:ring-blue-500 outline-none transition" %>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-1">
+          <%= f.label :location, "Место", class: "text-xs font-semibold uppercase text-slate-500" %>
+          <%= f.select :location, locations, { prompt: "Выбрать..." }, 
+              class: "w-full bg-slate-900 border border-slate-700 rounded-lg text-white p-2.5 focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer" %>
+        </div>
+
+        <div class="space-y-1">
+          <%= f.label :game_format, "Формат", class: "text-xs font-semibold uppercase text-slate-500" %>
+          <%= f.select :game_format, formats, { prompt: "Выбрать..." }, 
+              class: "w-full bg-slate-900 border border-slate-700 rounded-lg text-white p-2.5 focus:ring-2 focus:ring-blue-500 outline-none appearance-none cursor-pointer" %>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="space-y-1">
+          <%= f.label :limit, "Лимит", class: "text-xs font-semibold uppercase text-slate-500" %>
+          <%= f.text_field :limit, placeholder: "напр. 1/2", 
+              class: "w-full bg-slate-900 border border-slate-700 rounded-lg text-white p-2.5 focus:ring-2 focus:ring-blue-500 outline-none placeholder-slate-600" %>
+        </div>
+
+        <div class="space-y-1">
+          <%= f.label :duration, "Время (ч)", class: "text-xs font-semibold uppercase text-slate-500" %>
+          <%= f.number_field :duration, step: 0.1, placeholder: "4.5", 
+              class: "w-full bg-slate-900 border border-slate-700 rounded-lg text-white p-2.5 focus:ring-2 focus:ring-blue-500 outline-none placeholder-slate-600" %>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 pt-2">
+        <div class="space-y-1">
+          <%= f.label :buy_in, "Бай-ин ($)", class: "text-xs font-semibold uppercase text-slate-500 font-bold" %>
+          <div class="relative">
+            <span class="absolute left-3 top-2.5 text-slate-500">$</span>
+            <%= f.number_field :buy_in, class: "w-full bg-slate-900 border border-slate-700 rounded-lg text-white p-2.5 pl-7 focus:ring-2 focus:ring-blue-500 outline-none" %>
+          </div>
+        </div>
+
+        <div class="space-y-1">
+          <%= f.label :cashout, "Кэшаут ($)", class: "text-xs font-semibold uppercase text-slate-500 font-bold" %>
+          <div class="relative">
+            <span class="absolute left-3 top-2.5 text-green-600">$</span>
+            <%= f.number_field :cashout, class: "w-full bg-slate-900 border border-slate-700 rounded-lg text-green-400 font-bold p-2.5 pl-7 focus:ring-2 focus:ring-green-500 outline-none" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-1">
+        <%= f.label :notes, "Заметки", class: "text-xs font-semibold uppercase text-slate-500" %>
+        <%= f.text_area :notes, rows: 2, placeholder: "Как прошла игра?", 
+            class: "w-full bg-slate-900 border border-slate-700 rounded-lg text-white p-2.5 focus:ring-2 focus:ring-blue-500 outline-none placeholder-slate-600 resize-none" %>
+      </div>
+
+      <div class="pt-6">
+        <%= f.submit "ЗАФИКСИРОВАТЬ РЕЗУЛЬТАТ", 
+            class: "w-full bg-blue-600 hover:bg-blue-500 text-white font-black py-4 rounded-xl shadow-lg shadow-blue-900/30 transition-all active:scale-95 cursor-pointer uppercase tracking-widest text-sm" %>
+      </div>
+
+      <div class="text-center">
+        <%= link_to "Отмена", poker_sessions_path, class: "text-xs text-slate-500 hover:text-slate-300 transition" %>
+      </div>
+
+    <% end %>
+  </div>
+</div>

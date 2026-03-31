@@ -1,0 +1,59 @@
+<div class="w-full min-h-screen bg-slate-900 pt-10 pb-20 px-4 text-slate-200">
+  <div class="max-w-2xl mx-auto bg-slate-800 rounded-3xl border border-slate-700 shadow-2xl overflow-hidden">
+    
+    <div class="bg-slate-900/50 p-8 border-b border-slate-700 flex justify-between items-center">
+      <div>
+        <h2 class="text-3xl font-black text-white tracking-tighter italic uppercase">Детали <span class="text-blue-500">сессии</span></h2>
+        <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mt-1"><%= @poker_session.date.strftime("%B %d, %Y") %></p>
+      </div>
+      <div class="flex gap-2">
+        <%= link_to "Правка", edit_poker_session_path(@poker_session), class: "bg-slate-700 hover:bg-blue-600 text-white text-[10px] font-black px-4 py-2 rounded-lg transition uppercase tracking-widest" %>
+        <%= link_to "Назад", poker_sessions_path, class: "bg-slate-900 hover:bg-slate-700 text-slate-400 text-[10px] font-black px-4 py-2 rounded-lg transition uppercase tracking-widest border border-slate-700" %>
+      </div>
+    </div>
+
+    <div class="p-8">
+      <% profit = (@poker_session.cashout || 0) - (@poker_session.buy_in || 0) %>
+      
+      <div class="grid grid-cols-3 gap-4 mb-10">
+        <div class="bg-slate-900/80 p-5 rounded-2xl border border-slate-700/50 text-center">
+          <div class="text-[10px] font-black text-slate-500 uppercase mb-2">Бай-ин</div>
+          <div class="text-xl font-mono font-bold text-white">$<%= @poker_session.buy_in %></div>
+        </div>
+        <div class="bg-slate-900/80 p-5 rounded-2xl border border-slate-700/50 text-center">
+          <div class="text-[10px] font-black text-slate-500 uppercase mb-2">Кэшаут</div>
+          <div class="text-xl font-mono font-bold text-white">$<%= @poker_session.cashout %></div>
+        </div>
+        <div class="bg-blue-500/10 p-5 rounded-2xl border border-blue-500/20 text-center">
+          <div class="text-[10px] font-black text-blue-500 uppercase mb-2">Профит</div>
+          <div class="text-xl font-mono font-black <%= profit >= 0 ? 'text-green-400' : 'text-red-400' %>">
+            <%= profit >= 0 ? "+$#{profit}" : "-$#{profit.abs}" %>
+          </div>
+        </div>
+      </div>
+
+      <div class="space-y-6">
+        <div class="flex items-center justify-between border-b border-slate-700/50 pb-4">
+          <span class="text-xs font-bold text-slate-500 uppercase">Локация</span>
+          <span class="text-base text-white font-medium"><%= @poker_session.location %></span>
+        </div>
+        <div class="flex items-center justify-between border-b border-slate-700/50 pb-4">
+          <span class="text-xs font-bold text-slate-500 uppercase">Формат и Лимит</span>
+          <span class="text-base text-blue-400 font-mono font-bold"><%= @poker_session.game_format %> / <%= @poker_session.limit %></span>
+        </div>
+        <div class="flex items-center justify-between border-b border-slate-700/50 pb-4">
+          <span class="text-xs font-bold text-slate-500 uppercase">Длительность</span>
+          <span class="text-base text-white"><%= @poker_session.duration %> ч.</span>
+        </div>
+      </div>
+
+      <div class="mt-10">
+        <h4 class="text-[10px] font-black text-slate-500 uppercase mb-3 tracking-widest text-center">Заметки по игре</h4>
+        <div class="bg-slate-900/50 p-6 rounded-2xl border border-slate-700 italic text-slate-300 text-sm leading-relaxed">
+          <%= @poker_session.notes.presence || "Заметки отсутствуют..." %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

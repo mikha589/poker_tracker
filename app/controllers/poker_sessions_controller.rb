@@ -1,6 +1,6 @@
 class PokerSessionsController < ApplicationController
 
-    before_action :set_poker_session, only: [:edit, :update, :destroy]
+    before_action :set_poker_session, only: [:edit, :update, :destroy, :show]
 
     def index
         @poker_sessions = current_user.poker_sessions.all
