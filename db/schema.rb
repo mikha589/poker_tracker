@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_03_28_172900) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_02_124511) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -27,6 +27,17 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_28_172900) do
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_poker_sessions_on_user_id"
+  end
+
+  create_table "poker_sessions_tags", id: false, force: :cascade do |t|
+    t.bigint "poker_session_id", null: false
+    t.bigint "tag_id", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "name"
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

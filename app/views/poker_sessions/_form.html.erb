@@ -65,6 +65,19 @@
       </div>
 
       <div class="space-y-1">
+        <%= f.label :tag_list, "Теги (через запятую)", class: "text-xs font-semibold uppercase text-slate-500" %>
+        <div class="relative group">
+          <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <span class="text-blue-500 font-bold text-sm">#</span>
+          </div>
+          <%= f.text_field :tag_list, 
+              placeholder: "Tired, Tilted, Good Session...", 
+              class: "w-full bg-slate-900 border border-slate-700 rounded-lg text-white p-2.5 pl-7 focus:ring-2 focus:ring-blue-500 outline-none placeholder-slate-600 transition shadow-inner" %>
+        </div>
+        <p class="text-[10px] text-slate-600 italic px-1">Напр: Tired, Tilted, Good Session</p>
+      </div>
+
+      <div class="space-y-1">
         <%= f.label :notes, "Заметки", class: "text-xs font-semibold uppercase text-slate-500" %>
         <%= f.text_area :notes, rows: 2, placeholder: "Как прошла игра?", 
             class: "w-full bg-slate-900 border border-slate-700 rounded-lg text-white p-2.5 focus:ring-2 focus:ring-blue-500 outline-none placeholder-slate-600 resize-none" %>

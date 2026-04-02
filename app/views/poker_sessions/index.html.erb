@@ -1,4 +1,4 @@
-<div class="w-full bg-slate-900 min-h-screen text-slate-200 font-sans">
+ <div class="w-full bg-slate-900 min-h-screen text-slate-200 font-sans">
   
   <nav class="w-full bg-slate-800 border-b border-slate-700 sticky top-0 z-50 shadow-2xl">
     <div class="max-w-[1400px] mx-auto px-6 h-16 flex items-center justify-between">
@@ -6,81 +6,120 @@
         <span class="text-2xl font-black text-white tracking-tighter italic">
           POKER<span class="text-blue-500">TRACKER</span>
         </span>
-        
-        <div class="hidden lg:flex items-center gap-3">
-          <div class="bg-slate-900 border border-slate-700 rounded-lg px-4 py-2 flex items-center gap-3 cursor-not-allowed opacity-60">
-            <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Фильтр:</span>
-            <span class="text-xs text-slate-300">Все игры</span>
-            <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-width="2"></path></svg>
-          </div>
-        </div>
       </div>
 
-      <%= link_to new_poker_session_path, class: "bg-blue-600 hover:bg-blue-500 text-white text-sm font-black px-6 py-2.5 rounded-lg transition-all flex items-center gap-2 shadow-lg shadow-blue-900/40 active:scale-95 uppercase tracking-wider" do %>
-        <span class="text-xl leading-none">+</span> Новая сессия
-      <% end %>
+      <div class="flex items-center gap-4">
+        <%= link_to tags_path, class: "text-slate-400 hover:text-white transition-all text-xs uppercase font-bold tracking-widest flex items-center gap-2 px-3" do %>
+          <svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path d="M17.707 9.293l-5-5a.997.997 0 00-1.414 0l-7 7a.999.999 0 000 1.414l5 5a.997.997 0 001.414 0l7-7a.999.999 0 000-1.414zM9 11a1 1 0 110-2 1 1 0 010 2z"></path></svg>
+          Теги
+        <% end %>
+        
+        <%= link_to statistics_path, class: "flex items-center gap-2 bg-slate-700/50 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded-lg border border-slate-600 transition-all text-sm uppercase tracking-wider" do %>
+          Статистика
+        <% end %>
+
+        <%= link_to new_poker_session_path, class: "bg-blue-600 hover:bg-blue-500 text-white text-sm font-black px-6 py-2.5 rounded-lg transition-all flex items-center gap-2 shadow-lg shadow-blue-900/40 active:scale-95 uppercase tracking-wider" do %>
+          + Новая сессия
+        <% end %>
+      </div>
     </div>
   </nav>
 
-  <main class="max-w-[1400px] mx-auto py-10 px-6">
-    
-    <div class="overflow-hidden bg-slate-800 rounded-xl border border-slate-700 shadow-2xl">
-      <table class="w-full text-left border-collapse">
-        <thead>
-          <tr class="bg-slate-900/60 text-slate-500 text-[11px] uppercase tracking-[0.2em] font-bold">
-            <th class="p-6">Дата и формат</th>
-            <th class="p-6">Место проведения</th>
-            <th class="p-6">Лимит</th>
-            <th class="p-6">Профит</th>
-            <th class="p-6 text-right">Управление</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-slate-700/50">
-          <% @poker_sessions.each do |session| %>
-            <% profit = (session.cashout || 0) - (session.buy_in || 0) %>
-            <tr class="hover:bg-blue-500/5 transition-colors group">
-              <td class="p-6">
-                <div class="text-base font-bold text-slate-100"><%= session.date.strftime("%d.%m.%Y") %></div>
-                <div class="text-xs text-blue-400 font-medium uppercase tracking-tight mt-1"><%= session.game_format %></div>
-              </td>
-              <td class="p-6 text-base text-slate-300">
-                <div class="flex items-center gap-2">
-                  <span class="w-2 h-2 rounded-full bg-slate-600"></span>
-                  <%= session.location %>
-                </div>
-              </td>
-              <td class="p-6">
-                <span class="bg-slate-900/80 px-3 py-1.5 rounded-md text-xs font-mono text-slate-400 border border-slate-700">
-                  <%= session.limit %>
-                </span>
-              </td>
-              <td class="p-6">
-                <div class="text-xl font-mono font-black <%= profit >= 0 ? 'text-green-400' : 'text-red-400' %>">
-                  <%= profit >= 0 ? "+$#{profit}" : "-$#{profit.abs}" %>
-                </div>
-                <div class="text-[10px] text-slate-500 uppercase mt-1">
-                   Buy-in: $<%= session.buy_in %>
-                </div>
-              </td>
-              <td class="p-6">
-                <div class="flex justify-end gap-3 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <%= link_to "Детали", session, class: "text-[10px] font-bold uppercase tracking-widest bg-slate-700 hover:bg-slate-600 text-slate-200 px-4 py-2 rounded-md transition" %>
-                  <%= link_to "Правка", edit_poker_session_path(session), class: "text-[10px] font-bold uppercase tracking-widest bg-slate-700 hover:bg-blue-600 text-slate-200 px-4 py-2 rounded-md transition" %>
-                  <%= link_to "Удалить", session, data: { turbo_method: :delete, turbo_confirm: "Удалить сессию?" }, class: "text-[10px] font-bold uppercase tracking-widest bg-slate-900 hover:bg-red-600 text-red-500 hover:text-white px-4 py-2 rounded-md transition" %>
-                </div>
-              </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
+  <div class="w-full bg-slate-800/40 border-b border-slate-800 py-3">
+    <div class="max-w-[1400px] mx-auto px-6">
+      <%= form_with url: poker_sessions_path, method: :get, class: "flex flex-wrap items-center gap-4" do |f| %>
+        
+        <div class="flex items-center gap-2">
+          <div class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 flex items-center gap-2">
+            <span class="text-[9px] font-black uppercase text-slate-500">Формат:</span>
+            <%= f.select :game_format, options_for_select(["MTT", "Holdem", "Sit&Go"], params[:game_format]), { include_blank: "Все" }, 
+                class: "bg-transparent text-xs text-slate-300 outline-none border-none p-0 focus:ring-0 cursor-pointer font-bold" %>
+          </div>
 
-      <% if @poker_sessions.empty? %>
-        <div class="py-32 text-center">
-          <div class="text-6xl mb-6 opacity-20 text-blue-500">♠️</div>
-          <p class="text-slate-500 font-medium tracking-wide">Список пуст. Пора зайти в игру!</p>
+          <div class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 flex items-center gap-2">
+            <span class="text-[9px] font-black uppercase text-slate-500">Место:</span>
+            <%= f.select :location, options_for_select(["Casino", "Home Game", "Online"], params[:location]), { include_blank: "Все" }, 
+                class: "bg-transparent text-xs text-slate-300 outline-none border-none p-0 focus:ring-0 cursor-pointer font-bold" %>
+          </div>
+
+          <div class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 flex items-center gap-2">
+            <span class="text-[9px] font-black uppercase text-slate-500 text-blue-500">#</span>
+            <%= f.select :tag, Tag.pluck(:name), { include_blank: "Тег: Все", selected: params[:tag] }, 
+                class: "bg-transparent text-xs text-slate-300 outline-none border-none p-0 focus:ring-0 cursor-pointer font-bold" %>
+          </div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 flex items-center gap-3">
+          <span class="text-[9px] font-black uppercase text-slate-500">Период:</span>
+          <%= f.date_field :start_date, value: params[:start_date], class: "bg-transparent text-[11px] text-slate-300 border-none p-0 w-24 focus:ring-0" %>
+          <span class="text-slate-700">—</span>
+          <%= f.date_field :end_date, value: params[:end_date], class: "bg-transparent text-[11px] text-slate-300 border-none p-0 w-24 focus:ring-0" %>
+        </div>
+
+        <div class="flex items-center gap-3 ml-auto">
+          <% if params[:game_format].present? || params[:location].present? || params[:tag].present? || params[:start_date].present? %>
+            <%= link_to "Сбросить", poker_sessions_path, class: "text-[10px] font-bold text-slate-500 hover:text-red-400 uppercase tracking-widest transition" %>
+          <% end %>
+          <%= f.submit "Применить", class: "bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white border border-blue-600/30 text-[10px] font-black uppercase px-4 py-2 rounded-lg transition cursor-pointer" %>
         </div>
       <% end %>
     </div>
-  </main>
+  </div>
 
+<main class="max-w-[1400px] mx-auto py-8 px-6">
+  <div class="overflow-hidden bg-slate-800 rounded-xl border border-slate-700 shadow-2xl">
+    <table class="w-full text-left border-collapse table-fixed"> <%# Добавили table-fixed для строгого контроля ширины %>
+      <thead>
+        <tr class="bg-slate-900/60 text-slate-500 text-[11px] uppercase tracking-[0.2em] font-bold">
+          <th class="p-6 w-1/4">Дата и формат</th>
+          <th class="p-6 w-1/4">Место проведения</th>
+          <th class="p-6 w-1/6">Лимит</th>
+          <th class="p-6 w-1/6">Профит</th>
+          <th class="p-6 w-1/4 text-right">Управление</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-700/50">
+        <% @poker_sessions.each do |session| %>
+          <% profit = (session.cashout || 0) - (session.buy_in || 0) %>
+          <tr class="hover:bg-blue-500/5 transition-colors group text-sm">
+            <td class="p-6">
+              <div class="text-base font-bold text-slate-100"><%= session.date.strftime("%d.%m.%Y") %></div>
+              <div class="flex flex-wrap items-center gap-2 mt-1">
+                <div class="text-xs text-blue-400 font-medium uppercase tracking-tight"><%= session.game_format %></div>
+                <% session.tags.each do |tag| %>
+                  <span class="text-[9px] bg-slate-900/50 text-slate-500 px-1.5 py-0.5 rounded border border-slate-700 group-hover:border-blue-900 transition-colors italic">#<%= tag.name %></span>
+                <% end %>
+              </div>
+            </td>
+            
+            <td class="p-6 text-base text-slate-300">
+              <div class="flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-blue-500 shadow-[0_0_8px_rgba(59,130,246,0.5)]"></span>
+                <%= session.location %>
+              </div>
+            </td>
+
+            <td class="p-6 font-mono text-slate-400">
+              <span class="bg-slate-900/80 px-2 py-1 rounded border border-slate-700"><%= session.limit %></span>
+            </td>
+
+            <td class="p-6">
+              <div class="text-xl font-mono font-black <%= profit >= 0 ? 'text-green-400' : 'text-red-400' %>">
+                <%= profit %>$
+              </div>
+              <div class="text-[10px] text-slate-500 uppercase mt-1 whitespace-nowrap">Buy-in: $<%= session.buy_in %></div>
+            </td>
+
+            <%# ИСПРАВЛЕННАЯ ЯЧЕЙКА УПРАВЛЕНИЯ %>
+            <td class="p-6">
+              <div class="flex justify-end items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
+                <%= link_to "Детали", poker_session_path(session), class: "text-[9px] font-bold uppercase bg-slate-700 hover:bg-slate-600 text-slate-200 px-2.5 py-1.5 rounded transition" %>
+                <%= link_to "Правка", edit_poker_session_path(session), class: "text-[9px] font-bold uppercase bg-slate-700 hover:bg-blue-600 text-slate-200 px-2.5 py-1.5 rounded transition shadow-lg shadow-blue-900/20" %>
+                <%= link_to "Удалить", session, data: { turbo_method: :delete, turbo_confirm: "Удалить?" }, class: "text-[9px] font-bold uppercase bg-slate-900 hover:bg-red-600 text-red-500 hover:text-white px-2.5 py-1.5 rounded transition border border-red-900/20" %>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
 </div>

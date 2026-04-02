@@ -1,13 +1,13 @@
 module ErrorHandling
-    extend ActiveSupport::Concern
+  extend ActiveSupport::Concern
 
-    included do
-        rescue_from ActiveRecord::RecordNotFound, with: :notfound 
+  included do
+    rescue_from ActiveRecord::RecordNotFound, with: :notfound
 
-        private
+    private
 
-        def notfound
-            render file: 'public/404.html', status: :not_found, layout: false
-        end
+    def notfound
+      render file: "public/404.html", status: :not_found, layout: false
     end
+  end
 end

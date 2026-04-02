@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  
   include ErrorHandling
 
   allow_browser versions: :modern

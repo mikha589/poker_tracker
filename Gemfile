@@ -22,6 +22,9 @@ gem "jbuilder"
 gem "standard", ">= 1.35.1"
 gem "standard-rails"
 
+gem "kaminari", "~> 1.2.2"
+gem "kaminari-tailwind"
+
 gem "devise"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
 # gem "bcrypt", "~> 3.1.7"
