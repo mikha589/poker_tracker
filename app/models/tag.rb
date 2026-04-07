@@ -1,3 +1,4 @@
 class Tag < ApplicationRecord
-    has_and_belongs_to_many :poker_sessions
+  has_many :poker_sessions_tags
+  has_many :poker_sessions, through: :poker_sessions_tags
 end

@@ -1,10 +1,10 @@
 class PokerSessionsController < ApplicationController
-  before_action :set_poker_session, only: [:edit, :update, :destroy, :show]
+  before_action :authenticate_user!
+  before_action :set_poker_session, only: [ :edit, :update, :destroy, :show ]
+  before_action :authorize_user!, only: [ :edit, :update, :destroy, :show ]
 
   def index
-    @poker_sessions = current_user.poker_sessions.order(created_at: :desc).page(params[:page]).per(10).by_format(params[:game_format]).by_location(params[:location]).by_date_range(params[:start_date], params[:end_date])
-
-
+    @poker_sessions = current_user.poker_sessions.order(created_at: :desc).page(params[:page]).per(10).by_format(params[:game_format]).by_location(params[:location]).by_date_range(params[:start_date], params[:end_date]).by_tag(params[:tag])
   end
 
   def show
@@ -36,7 +36,10 @@ class PokerSessionsController < ApplicationController
 
   def destroy
     @poker_session.destroy
-    redirect_to poker_sessions_path
+    respond_to do |format|
+      format.turbo_stream { render turbo_stream: turbo_stream.remove(@poker_session) }
+      format.html { redirect_to sessions_path, notice: "Удалено" }
+    end
   end
 
   private
@@ -47,5 +50,11 @@ class PokerSessionsController < ApplicationController
 
   def poker_session_params
     params.require(:poker_session).permit(:date, :location, :game_format, :limit, :duration, :buy_in, :cashout, :notes, :tag_list)
+  end
+
+  def authorize_user!
+    if @poker_session.user != current_user
+      redirect_to root_path
+    end
   end
 end

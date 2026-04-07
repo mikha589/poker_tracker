@@ -1,21 +1,23 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  user: one
   date: 2026-03-28
-  location: MyString
-  game_format: MyString
-  limit: 1
-  duration: 1
-  buy_in: 1
-  cashout: 1
-  notes: MyText
+  location: "Casino"
+  game_format: "MTT"
+  limit: 10
+  duration: 4
+  buy_in: 100
+  cashout: 500
+  notes: "MyText"
 
 two:
+  user: two
   date: 2026-03-28
-  location: MyString
-  game_format: MyString
+  location: "Online"
+  game_format: "Sit&Go"
   limit: 1
-  duration: 1
-  buy_in: 1
-  cashout: 1
-  notes: MyText
+  duration: 5
+  buy_in: 10
+  cashout: 500
+  notes: "MyText"

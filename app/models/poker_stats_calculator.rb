@@ -18,7 +18,7 @@ class PokerStatsCalculator
   end
 
   def stats_by_format_and_location
-    grouped = @sessions.group_by { |s| [s.game_format, s.location] }
+    grouped = @sessions.group_by { |s| [ s.game_format, s.location ] }
 
     grouped.map do |(format, location), sessions|
       p = sessions.sum(&:profit)
@@ -39,7 +39,7 @@ class PokerStatsCalculator
     sum = 0
     @sessions.sort_by(&:created_at).map do |session|
       sum += session.profit
-      {date: session.created_at, amount: sum}
+      { date: session.created_at, amount: sum }
     end
   end
 
