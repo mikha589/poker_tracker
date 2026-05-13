@@ -2,28 +2,28 @@
   <div class="max-w-6xl mx-auto">
     
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-      <h1 class="text-3xl font-black tracking-widest uppercase text-white">Статистика</h1>
+      <h1 class="text-3xl font-black tracking-widest uppercase text-white"><%= t('forms.statistic') %></h1>
       <div class="bg-blue-600/20 border border-blue-500/50 px-4 py-2 rounded-lg">
-        <span class="text-blue-400 text-sm font-bold uppercase tracking-tighter">Текущий стрик:</span>
+        <span class="text-blue-400 text-sm font-bold uppercase tracking-tighter"><%= t('forms.streak') %></span>
         <span class="text-white font-black ml-2"><%= @stats.streak_win %></span>
       </div>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
       <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl backdrop-blur-sm">
-        <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-2">Общий профит</p>
+        <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-2"><%= t('forms.profit') %></p>
         <h2 class="text-4xl font-black <%= @stats.total_profit >= 0 ? 'text-green-400' : 'text-red-500' %>">
           <%= @stats.total_profit %>$
         </h2>
       </div>
 
       <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl backdrop-blur-sm">
-        <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-2">Винрейт ($/час)</p>
+        <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-2">Win-Rate($/h.)</p>
         <h2 class="text-4xl font-black text-cyan-400"><%= @stats.hourly_rate %>$</h2>
       </div>
 
       <div class="bg-slate-900/50 border border-slate-800 p-6 rounded-2xl backdrop-blur-sm">
-        <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-2">Общий ROI</p>
+        <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mb-2">ROI</p>
         <% 
           total_buy_in = @sessions.sum { |s| s.buy_in || 0 }
           total_roi = total_buy_in > 0 ? ((@stats.total_profit.to_f / total_buy_in) * 100).round(1) : 0
@@ -34,16 +34,16 @@
 
     <div class="bg-slate-900/50 border border-slate-800 rounded-2xl overflow-hidden mb-10">
       <div class="px-6 py-4 border-b border-slate-800 bg-slate-900/80">
-        <h3 class="text-sm font-bold uppercase text-slate-300">По форматам</h3>
+        <h3 class="text-sm font-bold uppercase text-slate-300"><%= t('forms.by_formats') %></h3>
       </div>
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
           <thead>
             <tr class="text-slate-500 text-[10px] uppercase tracking-wider border-b border-slate-800">
-              <th class="px-6 py-4 font-bold">Формат</th>
-              <th class="px-6 py-4 font-bold">Профит</th>
+              <th class="px-6 py-4 font-bold"><%= t('forms.game_format') %></th>
+              <th class="px-6 py-4 font-bold"><%= t('forms.profit') %></th>
               <th class="px-6 py-4 font-bold">ROI</th>
-              <th class="px-6 py-4 font-bold text-right">Почасовка</th>
+              <th class="px-6 py-4 font-bold text-right"><%= t('forms.hourly') %></th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-800">
@@ -54,7 +54,7 @@
                   <%= f[:profit] %>$
                 </td>
                 <td class="px-6 py-4 text-slate-300"><%= f[:roi] %>%</td>
-                <td class="px-6 py-4 text-right font-mono text-cyan-400"><%= f[:hourly] %>$/ч</td>
+                <td class="px-6 py-4 text-right font-mono text-cyan-400"><%= f[:hourly] %>$/<%= t('forms.hour') %></td>
               </tr>
             <% end %>
           </tbody>
@@ -64,16 +64,16 @@
 
     <div class="bg-slate-900/50 border border-slate-800 rounded-2xl overflow-hidden">
       <div class="px-6 py-4 border-b border-slate-800 bg-slate-900/80">
-        <h3 class="text-sm font-bold uppercase text-slate-300">По локациям</h3>
+        <h3 class="text-sm font-bold uppercase text-slate-300"><%= t('forms.by_locations') %></h3>
       </div>
       <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
           <thead>
             <tr class="text-slate-500 text-[10px] uppercase tracking-wider border-b border-slate-800">
-              <th class="px-6 py-4 font-bold">Формат</th>
-              <th class="px-6 py-4 font-bold">Локация</th>
-              <th class="px-6 py-4 font-bold">Профит</th>
-              <th class="px-6 py-4 font-bold text-right">$/час</th>
+              <th class="px-6 py-4 font-bold"><%= t('forms.game_format') %></th>
+              <th class="px-6 py-4 font-bold"><%= t('forms.location') %></th>
+              <th class="px-6 py-4 font-bold"><%= t('forms.profit') %></th>
+              <th class="px-6 py-4 font-bold text-right">$/<%= t('forms.hour') %></th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-800">

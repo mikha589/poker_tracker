@@ -10,15 +10,15 @@
       <div class="flex items-center gap-4">
         <%= link_to tags_path, class: "text-slate-400 hover:text-white transition-all text-xs uppercase font-bold tracking-widest flex items-center gap-2 px-3" do %>
           <svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path d="M17.707 9.293l-5-5a.997.997 0 00-1.414 0l-7 7a.999.999 0 000 1.414l5 5a.997.997 0 001.414 0l7-7a.999.999 0 000-1.414zM9 11a1 1 0 110-2 1 1 0 010 2z"></path></svg>
-          Теги
+          <%= t('forms.tag') %>
         <% end %>
         
         <%= link_to statistics_path, class: "flex items-center gap-2 bg-slate-700/50 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded-lg border border-slate-600 transition-all text-sm uppercase tracking-wider" do %>
-          Статистика
+          <%= t('forms.statistic') %>
         <% end %>
 
         <%= link_to new_poker_session_path, class: "bg-blue-600 hover:bg-blue-500 text-white text-sm font-black px-6 py-2.5 rounded-lg transition-all flex items-center gap-2 shadow-lg shadow-blue-900/40 active:scale-95 uppercase tracking-wider" do %>
-          + Новая сессия
+          + <%= t('forms.new_session_title') %>
         <% end %>
       </div>
     </div>
@@ -26,30 +26,31 @@
 <%= turbo_frame_tag "sessions_frame" do %>
   <div class="w-full bg-slate-800/40 border-b border-slate-800 py-3">
     <div class="max-w-[1400px] mx-auto px-6">
-    <%= form_with url: poker_sessions_path, method: :get, class: "flex flex-wrap items-center gap-4", data: { turbo_frame: "sessions_frame" } do |f| %>
+    <%= form_with url: poker_sessions_path(locale: params[:locale]), method: :get, class: "flex flex-wrap items-center gap-4", data: { turbo_frame: "sessions_frame" } do |f| %>
+      <%= hidden_field_tag :locale, params[:locale] %>
         
         <div class="flex items-center gap-2">
           <div class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 flex items-center gap-2">
-            <span class="text-[9px] font-black uppercase text-slate-500">Формат:</span>
-            <%= f.select :game_format, options_for_select(["MTT", "Holdem", "Sit&Go"], params[:game_format]), { include_blank: "Все" }, 
+            <span class="text-[9px] font-black uppercase text-slate-500"><%= t('forms.game_format') %>:</span>
+            <%= f.select :game_format, options_for_select(["MTT", "Holdem", "Sit&Go"], params[:game_format]), { include_blank: t('forms.all')  }, 
                 class: "bg-transparent text-xs text-slate-300 outline-none border-none p-0 focus:ring-0 cursor-pointer font-bold" %>
           </div>
 
           <div class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 flex items-center gap-2">
-            <span class="text-[9px] font-black uppercase text-slate-500">Место:</span>
-            <%= f.select :location, options_for_select(["Casino", "Home Game", "Online"], params[:location]), { include_blank: "Все" }, 
+            <span class="text-[9px] font-black uppercase text-slate-500"><%= t('forms.location') %>:</span>
+            <%= f.select :location, options_for_select(["Casino", "Home Game", "Online"], params[:location]), { include_blank: t('forms.all') }, 
                 class: "bg-transparent text-xs text-slate-300 outline-none border-none p-0 focus:ring-0 cursor-pointer font-bold" %>
           </div>
 
           <div class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 flex items-center gap-2">
             <span class="text-[9px] font-black uppercase text-slate-500 text-blue-500">#</span>
-            <%= f.select :tag, Tag.pluck(:name, :id), { include_blank: "Тег: Все", selected: params[:tag] }, 
+            <%= f.select :tag, Tag.pluck(:name, :id), { include_blank: t('forms.tags'), selected: params[:tag] }, 
                 class: "bg-transparent text-xs text-slate-300 outline-none border-none p-0 focus:ring-0 cursor-pointer font-bold" %>
           </div>
         </div>
 
         <div class="bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 flex items-center gap-3">
-          <span class="text-[9px] font-black uppercase text-slate-500">Период:</span>
+          <span class="text-[9px] font-black uppercase text-slate-500"><%= t('forms.period') %>:</span>
           <%= f.date_field :start_date, value: params[:start_date], class: "bg-transparent text-[11px] text-slate-300 border-none p-0 w-24 focus:ring-0" %>
           <span class="text-slate-700">—</span>
           <%= f.date_field :end_date, value: params[:end_date], class: "bg-transparent text-[11px] text-slate-300 border-none p-0 w-24 focus:ring-0" %>
@@ -57,9 +58,9 @@
 
         <div class="flex items-center gap-3 ml-auto">
           <% if params[:game_format].present? || params[:location].present? || params[:tag].present? || params[:start_date].present? %>
-            <%= link_to "Сбросить", poker_sessions_path, class: "text-[10px] font-bold text-slate-500 hover:text-red-400 uppercase tracking-widest transition" %>
+            <%= link_to t('forms.reset'), poker_sessions_path, class: "text-[10px] font-bold text-slate-500 hover:text-red-400 uppercase tracking-widest transition" %>
           <% end %>
-          <%= f.submit "Применить", class: "bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white border border-blue-600/30 text-[10px] font-black uppercase px-4 py-2 rounded-lg transition cursor-pointer" %>
+          <%= f.submit t('forms.accept'), class: "bg-blue-600/10 hover:bg-blue-600 text-blue-400 hover:text-white border border-blue-600/30 text-[10px] font-black uppercase px-4 py-2 rounded-lg transition cursor-pointer" %>
         </div>
       <% end %>
     </div>
@@ -67,14 +68,14 @@
 
 <main class="max-w-[1400px] mx-auto py-8 px-6">
   <div class="overflow-hidden bg-slate-800 rounded-xl border border-slate-700 shadow-2xl">
-    <table class="w-full text-left border-collapse table-fixed"> <%# Добавили table-fixed для строгого контроля ширины %>
+    <table class="w-full text-left border-collapse table-fixed">
       <thead>
         <tr class="bg-slate-900/60 text-slate-500 text-[11px] uppercase tracking-[0.2em] font-bold">
-          <th class="p-6 w-1/4">Дата и формат</th>
-          <th class="p-6 w-1/4">Место проведения</th>
-          <th class="p-6 w-1/6">Лимит</th>
-          <th class="p-6 w-1/6">Профит</th>
-          <th class="p-6 w-1/4 text-right">Управление</th>
+          <th class="p-6 w-1/4"><%= t('forms.date_format') %></th>
+          <th class="p-6 w-1/4"><%= t('forms.location') %></th>
+          <th class="p-6 w-1/6"><%= t('forms.limit') %></th>
+          <th class="p-6 w-1/6"><%= t('forms.profit') %></th>
+          <th class="p-6 w-1/4 text-right"><%= t('forms.control') %></th>
         </tr>
       </thead>
       <tbody class="divide-y divide-slate-700/50">
@@ -111,9 +112,9 @@
 
             <td class="p-6">
               <div class="flex justify-end items-center gap-1.5 opacity-0 group-hover:opacity-100 transition-opacity">
-                <%= link_to "Детали", poker_session_path(session),data: { turbo_frame: "_top" }, class: "text-[9px] font-bold uppercase bg-slate-700 hover:bg-slate-600 text-slate-200 px-2.5 py-1.5 rounded transition" %>
-                <%= link_to "Правка", edit_poker_session_path(session), data: { turbo_frame: "_top" },class: "text-[9px] font-bold uppercase bg-slate-700 hover:bg-blue-600 text-slate-200 px-2.5 py-1.5 rounded transition shadow-lg shadow-blue-900/20" %>
-                <%= link_to "Удалить", poker_session_path(session), method: :delete ,data: { turbo_method: :delete ,turbo_frame: "_top" }, class: "text-[9px] font-bold uppercase bg-slate-900 hover:bg-red-600 text-red-500 hover:text-white px-2.5 py-1.5 rounded transition border border-red-900/20" %>
+                <%= link_to t('forms.details'), poker_session_path(session),data: { turbo_frame: "_top" }, class: "text-[9px] font-bold uppercase bg-slate-700 hover:bg-slate-600 text-slate-200 px-2.5 py-1.5 rounded transition" %>
+                <%= link_to t('forms.edit'), edit_poker_session_path(session), data: { turbo_frame: "_top" },class: "text-[9px] font-bold uppercase bg-slate-700 hover:bg-blue-600 text-slate-200 px-2.5 py-1.5 rounded transition shadow-lg shadow-blue-900/20" %>
+                <%= link_to t('forms.delete'), poker_session_path(session), method: :delete ,data: { turbo_method: :delete ,turbo_frame: "_top" }, class: "text-[9px] font-bold uppercase bg-slate-900 hover:bg-red-600 text-red-500 hover:text-white px-2.5 py-1.5 rounded transition border border-red-900/20" %>
               </div>
             </td>
           </tr>

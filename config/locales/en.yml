@@ -1,31 +1,72 @@
-# Files in the config/locales directory are used for internationalization and
-# are automatically loaded by Rails. If you want to use locales other than
-# English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t "hello"
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t("hello") %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# To learn more about the API, please read the Rails Internationalization guide
-# at https://guides.rubyonrails.org/i18n.html.
-#
-# Be aware that YAML interprets the following case-insensitive strings as
-# booleans: `true`, `false`, `on`, `off`, `yes`, `no`. Therefore, these strings
-# must be quoted to be interpreted as strings. For example:
-#
-#     en:
-#       "yes": yup
-#       enabled: "ON"
-
 en:
-  hello: "Hello world"
+  devise:
+    conf_pass: "Password Сonfirmation" 
+    register: "Register"
+    login: "Log in"
+    loginn: "Log in"
+    password: "Password"
+    remember_me: "Remember me"
+    passwords:
+      minimum_characters: "(%{count} characters minimum)"
+  forms:
+    new_session_title: "NEW SESSION"
+    submit_button: "SAVE SESSION"
+    update: "UPDATE DATA"
+    home: "Professional poker session tracking.
+           Monitor your ROI and profits with one click."
+    date2: "Date"
+    my_session: "My sessions"
+    welcome: "We are glad to see you, "
+    home_welcome: "Your bankroll is waiting for an update. Ready to start the session?"
+    log_out: "Log out"
+    tag: "Tags"
+    statistic: "Statistic"
+    game_format: "Format"
+    location: "Location"
+    by_formats: "by formats"
+    hourly: "Hourly"
+    by_locations: "By Locations"
+    streak: "Streak"
+    analysis: "Analysis"
+    an_tag: "Tags"
+    tot_games: "Total Games"
+    tag_not_found: "Add tags to sessions to see them here"
+    tags: "Tag: All"
+    period: "Period"
+    reset: "Reset"
+    accept: "Accept"
+    limit: "Limit"
+    profit: "Profit"
+    date_format: "Date and Format"
+    control: "Control"
+    details: "Details"
+    limit_format: "Limit and Format"
+    edit: "Edit"
+    delete: "Delete"
+    sessions: "sessions"
+    session: "session"
+    hour: "h."
+    buy_in2: "Buy-in"
+    cashout2: "Cashout"
+    notes_not: "No notes..."
+    back: "Back"
+    all: "All"
+    login: "Log in"
+    register: "Registration"
+    placeholders:
+      notes: "How was the game?"
+      limit: "e.g. 1/2"
+      duration: "e.g. 4.5"
+    prompts: 
+      select: "Choose..."
+  activerecord:
+    attributes:
+      poker_session:
+        date: "Date game"
+        location: "Location"
+        game_format: "Format"
+        limit: "Limit"
+        duration: "time (h)"
+        buy_in: "Buy-in ($)"
+        cashout: "Cashout ($)"
+        tag_list: "Tags"

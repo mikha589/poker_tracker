@@ -25,6 +25,10 @@
 
   <body class="bg-slate-900">
     <main >
+    <div class="fixed top-4 right-4 flex gap-2">
+  <%= link_to "RU", url_for(locale: :ru), class: "text-white #{'font-bold underline' if I18n.locale == :ru}" %>
+  <%= link_to "EN", url_for(locale: :en), class: "text-white #{'font-bold underline' if I18n.locale == :en}" %>
+</div>
       <%= yield %>
     </main>
   </body>

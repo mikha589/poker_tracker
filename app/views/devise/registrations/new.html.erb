@@ -1,35 +1,55 @@
+<%  def devise_input_class(field)
+    base_classes = "appearance-none block w-full px-4 py-3.5 border bg-slate-900 text-white rounded-xl placeholder-slate-500 focus:outline-none focus:ring-2 transition duration-200 sm:text-sm"
+    if resource.errors[field].any?
+      "#{base_classes} border-red-500 focus:ring-red-500 focus:border-red-500"
+    else
+      "#{base_classes} border-slate-700 focus:ring-blue-500 focus:border-blue-500"
+    end
+  end
+%>
+
 <div class="min-h-screen w-full flex items-center justify-center bg-slate-900 px-4 py-12">
   <div class="max-w-md w-full bg-slate-800 p-10 rounded-3xl shadow-2xl border border-slate-700">
     
     <h2 class="text-3xl font-extrabold text-white text-center mb-10 tracking-tight">
-      Регистрация
+      <%= t('forms.register') %>
     </h2>
 
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-6" }) do |f| %>
-      <%= render "devise/shared/error_messages", resource: resource %>
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "space-y-5" }) do |f| %>
+      
 
-      <div>
+      <div class="space-y-1">
         <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Email", 
-            class: "appearance-none block w-full px-4 py-3.5 border border-slate-700 bg-slate-900 text-white rounded-xl placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+            class: devise_input_class(:email) %>
+        <% if resource.errors[:email].any? %>
+          <p class="text-[11px] text-red-500 italic px-1"><%= resource.errors[:email].first %></p>
+        <% end %>
       </div>
 
-      <div>
-        <%= f.password_field :password, autocomplete: "new-password", placeholder: "Пароль (мин. #{@minimum_password_length} симв.)", 
-            class: "appearance-none block w-full px-4 py-3.5 border border-slate-700 bg-slate-900 text-white rounded-xl placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+      <div class="space-y-1">
+        <%= f.password_field :password, autocomplete: "new-password", 
+           placeholder: @minimum_password_length ? t('devise.passwords.minimum_characters', count: @minimum_password_length) : "", 
+            class: devise_input_class(:password) %>
+        <% if resource.errors[:password].any? %>
+          <p class="text-[11px] text-red-500 italic px-1"><%= resource.errors[:password].first %></p>
+        <% end %>
       </div>
 
-      <div>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: "Подтверждение пароля", 
-            class: "appearance-none block w-full px-4 py-3.5 border border-slate-700 bg-slate-900 text-white rounded-xl placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm" %>
+      <div class="space-y-1">
+        <%= f.password_field :password_confirmation, autocomplete: "new-password", placeholder: t('devise.conf_pass'), 
+            class: devise_input_class(:password_confirmation) %>
+        <% if resource.errors[:password_confirmation].any? %>
+          <p class="text-[11px] text-red-500 italic px-1"><%= resource.errors[:password_confirmation].first %></p>
+        <% end %>
       </div>
 
-      <div>
-        <%= f.submit "Зарегистрироваться", 
+      <div class="pt-4">
+        <%= f.submit t('devise.register'),
             class: "w-full flex justify-center py-3.5 px-4 border border-transparent text-sm font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200 cursor-pointer shadow-lg shadow-blue-900/40" %>
       </div>
     <% end %>
 
-    <div class="text-center mt-10">
+    <div class="text-center mt-10 text-slate-400 text-sm">
       <%= render "devise/shared/links" %>
     </div>
   </div>

@@ -19,7 +19,7 @@ class PokerSessionsController < ApplicationController
     if @poker_session.save
       redirect_to poker_sessions_path
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -30,7 +30,7 @@ class PokerSessionsController < ApplicationController
     if @poker_session.update(poker_session_params)
       redirect_to poker_sessions_path
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 

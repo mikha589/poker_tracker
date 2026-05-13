@@ -3,15 +3,15 @@
     
     <% if user_signed_in? %>
       <h1 class="text-4xl font-extrabold text-white tracking-tight mb-4">
-        Рады видеть вас, <span class="text-blue-500"><%= current_user.email %></span>!
+        <%= t('forms.welcome') %><span class="text-blue-500"><%= current_user.email %></span>!
       </h1>
       <p class="text-lg text-slate-400 mb-10">
-        Ваш банкролл ждет обновлений. Готовы занести сессию?
+      <%= t('forms.home_welcome') %>
       </p>
       
       <div class="flex flex-col space-y-4">
-        <%= link_to "Мои сессии", poker_sessions_path, class: "w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-900/20 text-center" %>
-        <%= button_to "Выйти", destroy_user_session_path, method: :delete, 
+        <%= link_to t('forms.my_session'), poker_sessions_path, class: "w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-900/20 text-center" %>
+        <%= button_to t('forms.log_out'), destroy_user_session_path, method: :delete, 
             class: "w-full text-slate-400 hover:text-red-400 font-medium transition py-2" %>
       </div>
 
@@ -21,16 +21,15 @@
           Poker<span class="text-blue-500">Tracker</span>
         </h1>
         <p class="text-xl text-slate-400">
-          Профессиональный учет покерных сессий. <br>
-          Контролируйте ROI и профит в один клик.
+          <%= t('forms.home') %>
         </p>
       </div>
 
       <div class="flex flex-col space-y-4">
-        <%= link_to "Войти в аккаунт", new_user_session_path, 
+        <%= link_to t('forms.login'), new_user_session_path, 
             class: "w-full flex justify-center py-4 px-4 rounded-xl text-sm font-bold text-white bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-900/30 transition duration-200" %>
         
-        <%= link_to "Зарегистрироваться", new_user_registration_path, 
+        <%= link_to t('forms.register'), new_user_registration_path, 
             class: "w-full flex justify-center py-4 px-4 rounded-xl text-sm font-bold text-blue-400 border-2 border-slate-700 bg-transparent hover:bg-slate-800 hover:border-slate-600 transition duration-200" %>
       </div>
     <% end %>

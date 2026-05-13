@@ -6,10 +6,10 @@ class PokerSession < ApplicationRecord
   validates :date, presence: true
   validates :location, presence: true
   validates :game_format, presence: true
-  validates :limit, presence: true
-  validates :duration, presence: true
-  validates :buy_in, presence: true
-  validates :cashout, presence: true
+  validates :limit, presence: true, numericality: { greater_than: 0 }
+  validates :duration, presence: true , numericality: { greater_than: 0 }
+  validates :buy_in, presence: true, numericality: { greater_than: 0 }
+  validates :cashout, presence: true, numericality: { greater_than: 0 }
 
   def tag_list
     tags.map(&:name).join(", ")
