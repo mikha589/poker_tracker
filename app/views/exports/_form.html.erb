@@ -1,0 +1,7 @@
+<div id="flash_messages" class="fixed top-4 right-4 z-50 flex flex-col gap-2"></div>
+
+<%= form_with url: exports_path, method: :post, data: { controller: "disable-button", action: "submit->disable-button#disable" } do |f| %>
+  <%= f.submit "Экспортировать сессии", 
+      data: { disable_button_target: "submit" }, 
+      class: "flex items-center gap-2 bg-slate-700/50 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded-lg border border-slate-600 transition-all text-sm uppercase tracking-wider cursor-pointer active:scale-95" %>
+<% end %>

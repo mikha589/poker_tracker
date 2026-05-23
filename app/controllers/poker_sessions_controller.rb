@@ -1,7 +1,7 @@
 class PokerSessionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_poker_session, only: [ :edit, :update, :destroy, :show ]
-  before_action :authorize_user!, only: [ :edit, :update, :destroy, :show ]
+  before_action :set_poker_session, only: [:edit, :update, :destroy, :show]
+  before_action :authorize_user!, only: [:edit, :update, :destroy, :show]
 
   def index
     @poker_sessions = current_user.poker_sessions.order(created_at: :desc).page(params[:page]).per(10).by_format(params[:game_format]).by_location(params[:location]).by_date_range(params[:start_date], params[:end_date]).by_tag(params[:tag])

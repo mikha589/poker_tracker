@@ -6,10 +6,10 @@ class PokerSession < ApplicationRecord
   validates :date, presence: true
   validates :location, presence: true
   validates :game_format, presence: true
-  validates :limit, presence: true, numericality: { greater_than: 0 }
-  validates :duration, presence: true , numericality: { greater_than: 0 }
-  validates :buy_in, presence: true, numericality: { greater_than: 0 }
-  validates :cashout, presence: true, numericality: { greater_than: 0 }
+  validates :limit, presence: true, numericality: {greater_than: 0}
+  validates :duration, presence: true, numericality: {greater_than: 0}
+  validates :buy_in, presence: true, numericality: {greater_than: 0}
+  validates :cashout, presence: true, numericality: {greater_than: 0}
 
   def tag_list
     tags.map(&:name).join(", ")
@@ -27,7 +27,7 @@ class PokerSession < ApplicationRecord
   scope :by_buy_in, ->(b) { where(buy_in: b) if b.present? }
   scope :by_cashout, ->(c) { where(cashout: c) if c.present? }
   scope :by_date_range, ->(start_date, end_date) { where(created_at: start_date.to_date.beginning_of_day..end_date.to_date.end_of_day) if start_date.present? && end_date.present? }
-  scope :by_tag, ->(tag_id) { joins(:tags).where(tags: { id: tag_id }).distinct if tag_id.present? }
+  scope :by_tag, ->(tag_id) { joins(:tags).where(tags: {id: tag_id}).distinct if tag_id.present? }
 
   def profit
     cashout - buy_in

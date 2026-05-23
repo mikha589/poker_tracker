@@ -29,7 +29,8 @@ gem "devise"
 
 gem "sidekiq"
 gem "redis"
-
+gem "csv"
+gem "letter_opener"
 gem "rails-i18n"
 gem "devise-i18n"
 # Use Active Model has_secure_password [https://guides.rubyonrails.org/active_model_basics.html#securepassword]
