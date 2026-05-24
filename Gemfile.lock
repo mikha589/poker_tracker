@@ -363,11 +363,6 @@ GEM
       logger (>= 1.7.0)
       rack (>= 3.2.0)
       redis-client (>= 0.29.0)
-    solid_cable (3.0.12)
-      actioncable (>= 7.2)
-      activejob (>= 7.2)
-      activerecord (>= 7.2)
-      railties (>= 7.2)
     solid_cache (1.0.10)
       activejob (>= 7.2)
       activerecord (>= 7.2)
@@ -474,7 +469,6 @@ DEPENDENCIES
   rubocop-rails-omakase
   selenium-webdriver
   sidekiq
-  solid_cable
   solid_cache
   standard (>= 1.35.1)
   standard-rails
