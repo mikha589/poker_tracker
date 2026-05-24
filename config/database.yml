@@ -85,9 +85,8 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  primary: &primary_production
-    <<: *default
-    url: <%= ENV['DATABASE_URL'] %>
+  <<: *default
+  url: <%= ENV.fetch("DATABASE_URL") %>
   cache:
     <<: *primary_production
     url: <%= ENV['DATABASE_URL'] %>
