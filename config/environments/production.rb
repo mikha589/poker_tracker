@@ -60,12 +60,13 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:              "smtp.gmail.com",
-    port:                 587,
+    port:                 465,
     domain:               "gmail.com",
     user_name:            ENV["SMTP_USERNAME"], # Твоя почта в ENV на Render
     password:             ENV["SMTP_PASSWORD"], # Твой пароль приложения в ENV на Render
     authentication:       "plain",
-    enable_starttls_auto: true
+    ssl: true,
+    tls: true
   }
 
   # Чтобы ссылки в письмах вели на твой сайт на Render
