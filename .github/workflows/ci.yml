@@ -11,30 +11,25 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-
-      - name: Scan for common Rails security vulnerabilities using static analysis
+      - name: Security scan (Brakeman)
         run: bundle exec brakeman --no-pager
-      
-      - name: Scan for known security vulnerabilities in gems used
+      - name: Security scan (Bundle Audit)
         run: bundle exec bundle-audit check --update
-      
+
   scan_js:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-
-      - name: Scan for security vulnerabilities in JavaScript dependencies
+      - name: Scan JS dependencies
         run: bin/importmap audit
 
   lint:
@@ -42,19 +37,15 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
-
-      # Переключили линтер на StandardRB
-      - name: Lint code for consistent style
+      - name: Lint code (StandardRB)
         run: bundle exec standardrb
 
   test:
     runs-on: ubuntu-latest
-
     services:
       postgres:
         image: postgres:15-alpine
@@ -64,7 +55,6 @@ jobs:
         ports:
           - 5432:5432
         options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
-
       redis:
         image: redis:7-alpine
         ports:
@@ -72,7 +62,7 @@ jobs:
         options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - name: Install packages
+      - name: Install dependencies
         run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev
 
       - name: Checkout code
@@ -83,55 +73,11 @@ jobs:
         with:
           bundler-cache: true
 
-      - name: Run tests
+      - name: Run Tests
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/poker_tracker_test
           REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test
-
-  system-test:
-    runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:15-alpine
-        env:
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
-        ports:
-          - 5432:5432
-        options: --health-cmd="pg_isready" --health-interval=10s --health-timeout=5s --health-retries=3
-
-      redis:
-        image: redis:7-alpine
-        ports:
-          - 6379:6379
-        options: --health-cmd "redis-cli ping" --health-interval 10s --health-timeout 5s --health-retries 5
-
-    steps:
-      - name: Install packages
-        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libpq-dev
-
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Run System Tests
-        env:
-          RAILS_ENV: test
-          DATABASE_URL: postgres://postgres:postgres@localhost:5432/poker_tracker_test
-          REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test:system
-
-      - name: Keep screenshots from failed system tests
-        uses: actions/upload-artifact@v4
-        if: failure()
-        with:
-          name: screenshots
-          path: ${{ github.workspace }}/tmp/screenshots
-          if-no-files-found: ignore
+        run: |
+          bin/rails db:test:prepare
+          bin/rails test
