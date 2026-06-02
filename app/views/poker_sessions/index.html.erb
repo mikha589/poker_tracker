@@ -6,10 +6,11 @@
           POKER<span class="text-blue-500">TRACKER</span>
         </span>
       </div>
-      <div id="export_form_container">
-  <%= render "exports/form" %>
-</div>
-
+      <% if @poker_sessions.any? %>
+        <div id="export_form_container">
+          <%= render "exports/form" %>
+        </div>
+      <% end %>
       <div class="flex items-center gap-4">
         <%= link_to tags_path, class: "text-slate-400 hover:text-white transition-all text-xs uppercase font-bold tracking-widest flex items-center gap-2 px-3" do %>
           <svg class="w-4 h-4 text-blue-500" fill="currentColor" viewBox="0 0 20 20"><path d="M17.707 9.293l-5-5a.997.997 0 00-1.414 0l-7 7a.999.999 0 000 1.414l5 5a.997.997 0 001.414 0l7-7a.999.999 0 000-1.414zM9 11a1 1 0 110-2 1 1 0 010 2z"></path></svg>
