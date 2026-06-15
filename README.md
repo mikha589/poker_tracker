@@ -2,8 +2,6 @@
 
 A professional web application for tracking and analyzing poker sessions. It helps players record their results, analyze win rates, monitor bankroll performance, and make data-driven decisions.
 
-[![CI Pipeline](https://github.com/mikha589/poker_tracker/actions/workflows/ci.yml/badge.svg)](https://github.com/mikha589/poker_tracker/actions)
-
 ## 🛠 Tech Stack
 
 * **Backend:** Ruby 3.4+ / Rails 8
